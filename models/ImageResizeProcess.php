@@ -6,6 +6,11 @@ class ImageResizeProcess extends ProcessAbstract
         $db = get_db();
         $storage = Zend_Registry::get('storage');
         
+        // Only resize images on systems using the filesystem storage adapter.
+        if (!($storage->getAdapter() instanceof Omeka_Storage_Adapter_Filesystem)) {
+            throw new Exception('The storage adapter is not an instance of Omeka_Storage_Adapter_Filesystem.');
+        }
+        
         // Set the constraint options.
         foreach ($constraints as $key => $constraint) {
             if ($constraint) {

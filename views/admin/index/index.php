@@ -6,6 +6,9 @@ head($head);
 <div id="primary">
 <?php echo flash(); ?>
 
+<?php if (!$usingFilesystemAdapter): ?>
+<p style="color: red;">Your Omeka installation is not using the filesystem storage adapter. You will not be able to resize images.</p>
+<?php else: ?>
 <form method="post">
 <table>
     <thead>
@@ -35,6 +38,7 @@ head($head);
 </table>
 <?php echo $this->formSubmit('image_resize_submit', 'Resize Selected Images'); ?>
 </form>
+<?php endif; ?>
 
 <h2>Image Resize Processes</h2>
 <table>

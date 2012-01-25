@@ -3,6 +3,13 @@ class ImageResize_IndexController extends Omeka_Controller_Action
 {
     public function indexAction()
     {
+        // Only resize images on systems using the filesystem storage adapter.
+        if (Zend_Registry::get('storage')->getAdapter() instanceof Omeka_Storage_Adapter_Filesystem) {
+            $this->view->assign('usingFilesystemAdapter', true);
+        } else {
+            $this->view->assign('usingFilesystemAdapter', false);
+        }
+        
         if (isset($_POST['image_resize_submit'])) {
             
             $constraints = array('fullsize_constraint' => false, 
