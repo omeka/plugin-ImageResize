@@ -35,9 +35,15 @@ class ImageResize_IndexController extends Omeka_Controller_Action
             }
             
             if (!isset($validationError)) {
-                // Run the process, even if the constraints did not change.
-                ProcessDispatcher::startProcess('ImageResizeProcess', null, $constraints);
-                $this->flashSuccess('Resizing images. This process may take a while.');
+                if ($constraints['fullsize_constraint'] 
+                 || $constraints['thumbnail_constraint'] 
+                 || $constraints['square_thumbnail_constraint']) {
+                    // Run the process, even if the constraints did not change.
+                    ProcessDispatcher::startProcess('ImageResizeProcess', null, $constraints);
+                    $this->flashSuccess('Resizing images. This process may take a while.');
+                } else {
+                    $this->flash('No changes were made. Images were not resized.');
+                }
             }
         }
         
