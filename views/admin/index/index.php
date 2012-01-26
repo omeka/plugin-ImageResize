@@ -7,20 +7,24 @@ head($head);
 <?php echo flash(); ?>
 
 <?php if (!$usingFilesystemAdapter): ?>
-<p style="color: red;">Your Omeka installation is not using the filesystem storage adapter. You will not be able to resize images.</p>
+<p style="color: red;">Your Omeka installation is not using the filesystem 
+storage adapter. You will not be able to resize images.</p>
 <?php else: ?>
+<p>Use the below form to resize image derivatives in your Omeka archive 
+(fullsize image, thumbnail, and square thumbnail). We highly recommended that 
+you backup the archive directory before resizing images.</p>
 <form method="post">
 <table>
     <thead>
     <tr>
-        <th>Image type</th>
-        <th>Size constraint (pixels)</th>
-        <th>Resize?</th>
+        <th>Image Type</th>
+        <th>Size Constraint (in pixels)</th>
+        <th>Select to Resize</th>
     </tr>
     </thead>
     <tbody>
     <tr>
-        <td>Fullsize image</td>
+        <td>Fullsize Image</td>
         <td><?php echo $this->formText('fullsize_constraint', get_option('fullsize_constraint'), array('size' => '6')); ?></td>
         <td><?php echo $this->formCheckbox('resize_fullsize_constraint'); ?></td>
     </tr>
@@ -30,7 +34,7 @@ head($head);
         <td><?php echo $this->formCheckbox('resize_thumbnail_constraint'); ?></td>
     </tr>
     <tr>
-        <td>Square thumbnail</td>
+        <td>Square Thumbnail</td>
         <td><?php echo $this->formText('square_thumbnail_constraint', get_option('square_thumbnail_constraint'), array('size' => '6')); ?></td>
         <td><?php echo $this->formCheckbox('resize_square_thumbnail_constraint'); ?></td>
     </tr>
@@ -41,10 +45,13 @@ head($head);
 <?php endif; ?>
 
 <h2>Image Resize Processes</h2>
+<?php if (!$processes): ?>
+<p>There are no image resize processes.</p>
+<?php else: ?>
 <table>
     <thead>
     <tr>
-        <th>Resize action</th>
+        <th>Resize Action</th>
         <th>Status</th>
         <th>Started</th>
         <th>Stopped</th>
@@ -70,6 +77,7 @@ head($head);
     <?php endforeach; ?>
     </tbody>
 </table>
+<?php endif; ?>
 
 </div>
 <?php foot(); ?>
