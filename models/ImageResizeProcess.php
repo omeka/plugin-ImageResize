@@ -11,13 +11,6 @@ class ImageResizeProcess extends ProcessAbstract
             throw new Exception('The storage adapter is not an instance of Omeka_Storage_Adapter_Filesystem.');
         }
         
-        // Set the constraint options.
-        foreach ($constraints as $key => $constraint) {
-            if ($constraint) {
-                set_option($key, $constraint);
-            }
-        }
-        
         // Iterate all image files in the archive.
         $sql = "SELECT * FROM {$db->File} WHERE has_derivative_image = 1";
         foreach ($db->query($sql)->fetchAll() as $imageFile) {
