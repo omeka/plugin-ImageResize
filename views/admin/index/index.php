@@ -13,7 +13,7 @@ storage adapter. You will not be able to resize images.</p>
 <p>Use the below form to resize image derivatives in your Omeka archive 
 (fullsize image, thumbnail, and square thumbnail). We highly recommended that 
 you backup the archive directory before resizing images.</p>
-<form method="post">
+<form action="<?php echo $this->url('image-resize/index/resize'); ?>" method="post">
 <table>
     <thead>
     <tr>
