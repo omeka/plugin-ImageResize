@@ -33,6 +33,12 @@ class ImageResizeProcess extends ProcessAbstract
                 
                 $filesPath = FILES_DIR . '/' . $imageFile['archive_filename'];
                 
+                // Rarely a file exists in the database but not in the files 
+                // directory. Do not attempt to resize a nonexistant file.
+                if (!file_exists($filesPath)) {
+                    continue;
+                }
+                
                 switch ($derivativeType) {
                     // Resize square thumbnail.
                     case 'square_thumbnail_constraint':
